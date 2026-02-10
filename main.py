@@ -38,6 +38,15 @@ book = [
     
 ]
 
+#endpoints
+
+#get all books
+@app.get("/books")
+async def get_books():
+    pass
+
+    
+
 # @app.get('/health')
 # async def get_health():
 #     return {
