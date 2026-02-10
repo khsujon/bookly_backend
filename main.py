@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status
+from fastapi.exceptions import HTTPException
 from typing import Optional
 from pydantic import BaseModel
 from typing import List
@@ -67,7 +68,10 @@ async def create_book(book: Book)-> dict:
 #get book by id
 @app.get("/books/{book_id}")
 async def get_book(book_id: int)-> dict:
-    pass
+    for book in books:
+        if book["id"]==book_id:
+            return book
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_id}")
 
 #update a book
 @app.patch("/books/{book_id}")
