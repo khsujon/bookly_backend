@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
 
@@ -51,7 +52,7 @@ class Book(BaseModel):
 #endpoints
 
 #get all books
-@app.get("/books")
+@app.get("/books", response_model= List[Book])
 async def get_books():
     return books
 
