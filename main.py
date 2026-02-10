@@ -45,6 +45,12 @@ book = [
 async def get_books():
     pass
 
+#get book by id
+@app.get("/books/{book_id}")
+async def get_book(book_id: int):
+    pass
+
+
     
 
 # @app.get('/health')
