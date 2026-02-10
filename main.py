@@ -47,10 +47,13 @@ async def get_books():
 
 #get book by id
 @app.get("/books/{book_id}")
-async def get_book(book_id: int):
+async def get_book(book_id: int)-> dict:
     pass
 
-
+#create a book
+@app.post("/books")
+async def create_book()-> dict:
+    pass
     
 
 # @app.get('/health')
