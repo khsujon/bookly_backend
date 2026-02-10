@@ -49,7 +49,12 @@ class Book(BaseModel):
     published_date: str
     page_count: int
     language: str
-
+#update model
+class BookUpdate(BaseModel):
+    title: Optional[str] = None
+    publisher: Optional[str] = None
+    page_count: Optional[int] = None
+    language: Optional[str] = None
 #endpoints
 
 #get all books
@@ -75,8 +80,19 @@ async def get_book(book_id: int)-> dict:
 
 #update a book
 @app.patch("/books/{book_id}")
-async def update_book(book_id: int)-> dict:
-    pass
+async def update_book(book_id: int, book_update: BookUpdate)-> dict:
+    for book in books:
+        if book["id"] == book_id:
+            if book_update.title is not None:
+                book["title"] = book_update.title
+            if book_update.publisher is not None:
+                book["publisher"] = book_update.publisher
+            if book_update.page_count is not None:
+                book["page_count"] = book_update.page_count
+            if book_update.language is not None:
+                book["language"] = book_update.language
+            return book
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_id}")
 
 @app.delete("/books/{book_id}")
 async def delete_book(book_id: int)-> dict:
