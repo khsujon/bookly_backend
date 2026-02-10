@@ -62,9 +62,12 @@ async def get_book(book_id: int)-> dict:
     pass
 
 #create a book
-@app.post("/books")
-async def create_book()-> dict:
-    pass
+@app.post("/books", status_code=status.HTTP_201_CREATED)
+async def create_book(book: Book)-> dict:
+    new_book = book.model_dump()
+    new_book["id"] = len(books) + 1
+    books.append(new_book)
+    return new_book
 
 #update a book
 @app.patch("/books/{book_id}")
