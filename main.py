@@ -60,6 +60,9 @@ async def create_book()-> dict:
 async def update_book(book_id: int)-> dict:
     pass
 
+@app.delete("/books/{book_id}")
+async def delete_book(book_id: int)-> dict:
+    pass
     
 
 # @app.get('/health')
