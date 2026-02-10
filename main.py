@@ -54,6 +54,12 @@ async def get_book(book_id: int)-> dict:
 @app.post("/books")
 async def create_book()-> dict:
     pass
+
+#update a book
+@app.patch("/books/{book_id}")
+async def update_book(book_id: int)-> dict:
+    pass
+
     
 
 # @app.get('/health')
