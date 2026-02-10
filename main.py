@@ -55,11 +55,6 @@ class Book(BaseModel):
 @app.get("/books", response_model= List[Book])
 async def get_books():
     return books
- 
-#get book by id
-@app.get("/books/{book_id}")
-async def get_book(book_id: int)-> dict:
-    pass
 
 #create a book
 @app.post("/books", status_code=status.HTTP_201_CREATED)
@@ -68,6 +63,11 @@ async def create_book(book: Book)-> dict:
     new_book["id"] = len(books) + 1
     books.append(new_book)
     return new_book
+
+#get book by id
+@app.get("/books/{book_id}")
+async def get_book(book_id: int)-> dict:
+    pass
 
 #update a book
 @app.patch("/books/{book_id}")
