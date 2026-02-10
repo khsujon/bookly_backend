@@ -6,7 +6,7 @@ app = FastAPI()
 
 
 #book data
-book = [
+books = [
     {"id": 1,
     "title": "The Great Gatsby",
     "author": "F. Scott Fitzgerald",
@@ -43,7 +43,7 @@ book = [
 #get all books
 @app.get("/books")
 async def get_books():
-    pass
+    return books
 
 #get book by id
 @app.get("/books/{book_id}")
