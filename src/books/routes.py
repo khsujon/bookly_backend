@@ -1,8 +1,8 @@
 from fastapi import APIRouter, status
 from fastapi.exceptions import HTTPException
 from typing import List
-from books_data import books
-from books.schemas import Book, BookUpdate
+from .books_data import books
+from .schemas import Book, BookUpdate
 
 book_router = APIRouter()
 #endpoints
