@@ -1,28 +1,13 @@
 from fastapi import FastAPI, status
 from fastapi.exceptions import HTTPException
-from typing import Optional
-from pydantic import BaseModel
+
 from typing import List
 
 app = FastAPI()
 
 
 
-#response model
-class Book(BaseModel):
-    id: int
-    title: str
-    author: str
-    publisher: str
-    published_date: str
-    page_count: int
-    language: str
-#update model
-class BookUpdate(BaseModel):
-    title: Optional[str] = None
-    publisher: Optional[str] = None
-    page_count: Optional[int] = None
-    language: Optional[str] = None
+
 #endpoints
 
 #get all books
