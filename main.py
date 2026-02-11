@@ -94,9 +94,15 @@ async def update_book(book_id: int, book_update: BookUpdate)-> dict:
             return book
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_id}")
 
-@app.delete("/books/{book_id}")
-async def delete_book(book_id: int)-> dict:
-    pass
+
+#delete a book
+@app.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_book(book_id: int):
+    for book in books:
+        if book["id"] == book_id:
+            books.remove(book)
+            return {}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_id}")
     
 
 # @app.get('/health')
