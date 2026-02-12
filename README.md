@@ -30,4 +30,8 @@ A RESTful API backend for a book review application built with FastAPI.
    ```bash
    pip install -r requirements.txt
    ```
+4. **Run the application**
+   ```bash
+   uvicorn src.main:app --reload
+   ```
 
