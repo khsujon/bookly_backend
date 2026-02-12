@@ -17,3 +17,12 @@ A RESTful API backend for a book review application built with FastAPI.
    cd Bookly_backend
    ```
 
+2. **Create and activate virtual environment**
+   ```bash
+   python -m venv env
+   # Windows
+   env\Scripts\activate
+   # Linux/Mac
+   source env/bin/activate
+   ```
+
