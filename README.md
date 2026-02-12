@@ -35,3 +35,15 @@ A RESTful API backend for a book review application built with FastAPI.
    uvicorn src.main:app --reload
    ```
 
+## Project Structure
+
+```
+src/
+├── books/          # Book-related endpoints
+│   ├── routes.py   # API routes
+│   ├── schemas.py  # Pydantic models
+│   └── books_data.py
+└── __init__.py
+```
+
+
