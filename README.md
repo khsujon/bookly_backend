@@ -71,4 +71,10 @@ Once running, visit:
 - **Pagination** - Efficient data retrieval for large datasets
 - **File uploads** - Book cover images using cloud storage (AWS S3/Cloudinary)
 
+### Infrastructure
+- **Docker** - Containerization for easy deployment
+- **CI/CD** - Automated testing and deployment pipeline
+- **Redis** - Caching layer for improved performance
+- **Logging & monitoring** - Enhanced debugging and analytics
+
 
