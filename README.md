@@ -59,3 +59,9 @@ Once running, visit:
 - **SQLAlchemy/Motor** - ORM/ODM for database operations
 - **Alembic** - Database migrations management
 
+### Authentication & Authorization
+- **JWT tokens** - Secure user authentication
+- **OAuth2** - Social login integration (Google, GitHub)
+- **Role-based access control** - User permissions and roles
+
+
