@@ -26,3 +26,8 @@ A RESTful API backend for a book review application built with FastAPI.
    source env/bin/activate
    ```
 
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
