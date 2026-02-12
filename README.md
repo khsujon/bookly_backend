@@ -9,3 +9,11 @@ A RESTful API backend for a book review application built with FastAPI.
 - **Pydantic** - Data validation
 - **Uvicorn** - ASGI server
 
+## Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Bookly_backend
+   ```
+
