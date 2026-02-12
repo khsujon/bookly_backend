@@ -64,4 +64,11 @@ Once running, visit:
 - **OAuth2** - Social login integration (Google, GitHub)
 - **Role-based access control** - User permissions and roles
 
+### Advanced Features
+- **User management** - Registration, profiles, and settings
+- **Review system** - User ratings and reviews for books
+- **Search & filtering** - Advanced book search with filters
+- **Pagination** - Efficient data retrieval for large datasets
+- **File uploads** - Book cover images using cloud storage (AWS S3/Cloudinary)
+
 
