@@ -51,3 +51,11 @@ src/
 Once running, visit:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
+
+## Future Integration Plan
+
+### Database Integration
+- **PostgreSQL/MongoDB** - Migrate from in-memory data to persistent storage
+- **SQLAlchemy/Motor** - ORM/ODM for database operations
+- **Alembic** - Database migrations management
+
