@@ -74,10 +74,42 @@ A RESTful API backend for a book review application built with FastAPI.
    'postgresql+asyncpg://postgres:your_password@localhost:5432/bookly_db'
    ```
 
-9. **Run the application**
+9. **Install SQLModel**
+   
+   SQLModel combines SQLAlchemy and Pydantic for elegant database interactions:
    ```bash
-   uvicorn src.main:app --reload
+   pip install sqlmodel
    ```
+
+10. **Set up database engine**
+    
+    Create `src/db/main.py` with the following content:
+    ```python
+    from sqlmodel import create_engine
+    from sqlalchemy.ext.asyncio import AsyncEngine
+    from src.config import Config
+    
+    # Create an asynchronous engine
+    engine = AsyncEngine(
+        create_engine(Config.DATABASE_URL, echo=True)
+    )
+    ```
+    
+    **Code explanation:**
+    - `sqlmodel.create_engine`: Creates a synchronous database engine that manages database connections
+    - `sqlalchemy.ext.asyncio.AsyncEngine`: Wraps the sync engine to enable async/await database operations, crucial for FastAPI's async endpoints
+    - `Config.DATABASE_URL`: Retrieves the database connection string from environment variables
+    - `echo=True`: Enables SQL query logging for debugging (logs all SQL statements to console)
+    
+    **Why async engine?**
+    - Non-blocking I/O operations prevent FastAPI from freezing during database queries
+    - Handles multiple concurrent requests efficiently
+    - Better performance and scalability for production applications
+
+11. **Run the application**
+    ```bash
+    uvicorn src.main:app --reload
+    ```
 
 ## Project Structure
 
