@@ -106,8 +106,65 @@ A RESTful API backend for a book review application built with FastAPI.
     - Handles multiple concurrent requests efficiently
     - Better performance and scalability for production applications
 
-11. **Run the application**
+11. **Add database initialization function**
+    
+    Add the following function to `src/db/main.py`:
+    ```python
+    from sqlalchemy import text
+    
+    async def init_db():
+        async with engine.begin() as conn:
+            statement = text("SELECT 'hello world';")
+            
+            result = await conn.execute(statement)
+            print(result.all())
+    ```
+    
+    **Code explanation:**
+    - `engine.begin()`: Creates an async database connection and starts a transaction
+    - `text()`: Wraps raw SQL statements for safe execution
+    - `await conn.execute()`: Executes SQL query asynchronously
+    - `result.all()`: Fetches all rows from the query result
+    
+    **Purpose:** Tests database connectivity on startup to ensure the connection is working properly.
+
+12. **Configure application lifespan**
+    
+    In your main application file (e.g., `src/__init__.py` or `src/main.py`), add:
+    ```python
+    from contextlib import asynccontextmanager
+    from fastapi import FastAPI
+    from src.db.main import init_db
+    
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        # Perform any startup tasks here (e.g., connect to the database)
+        print("Starting up server...")
+        await init_db()
+        yield   
+        # Perform any shutdown tasks here (e.g., disconnect from the database)
+        print("Shutting down has been stopped")
+    
+    app = FastAPI(lifespan=lifespan)
+    ```
+    
+    **Code explanation:**
+    - `@asynccontextmanager`: Decorator that creates an async context manager for managing application lifecycle
+    - `lifespan(app)`: Function that runs during app startup and shutdown
+    - Code before `yield`: Executes on application startup (database initialization, loading configs, etc.)
+    - `yield`: Separates startup from shutdown logic; app runs while yielded
+    - Code after `yield`: Executes on application shutdown (cleanup tasks, closing connections, etc.)
+    
+    **Why use lifespan?**
+    - Ensures database connection is established before handling requests
+    - Gracefully handles cleanup when shutting down the server
+    - Centralizes startup/shutdown logic in one place
+    - Prevents memory leaks and ensures proper resource management
+
+13. **Run the application**
     ```bash
+    fastapi dev src/
+    # or
     uvicorn src.main:app --reload
     ```
 
