@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from .books.routes import book_router
 from contextlib import asynccontextmanager
+from src.db.main import init_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Perform any startup tasks here (e.g., connect to the database)
     print("Starting up server...")
+    await init_db()
     yield   
     # Perform any shutdown tasks here (e.g., disconnect from the database)
     print("Shutting down has been stopped")
