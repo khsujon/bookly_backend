@@ -30,7 +30,51 @@ A RESTful API backend for a book review application built with FastAPI.
    ```bash
    pip install -r requirements.txt
    ```
-4. **Run the application**
+
+4. **Install required packages**
+   ```bash
+   pip install pydantic-settings
+   pip install asyncpg
+   ```
+
+5. **Create requirements file**
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+6. **Configure database**
+   
+   Create a `.env` file in the root directory and add your database URL:
+   ```env
+   DATABASE_URL=postgresql+asyncpg://postgres:your_password@localhost:5432/bookly_db
+   ```
+
+7. **Create configuration file**
+   
+   Create `src/config.py` with the following content:
+   ```python
+   from pydantic_settings import BaseSettings, SettingsConfigDict
+
+   class Settings(BaseSettings):
+       DATABASE_URL: str
+
+       model_config = SettingsConfigDict(
+           env_file=".env", extra="ignore"
+       )
+   ```
+
+8. **Verify configuration**
+   
+   Test the configuration in Python REPL:
+   ```python
+   python
+   >>> from src.config import Settings
+   >>> s = Settings()
+   >>> s.DATABASE_URL
+   'postgresql+asyncpg://postgres:your_password@localhost:5432/bookly_db'
+   ```
+
+9. **Run the application**
    ```bash
    uvicorn src.main:app --reload
    ```
