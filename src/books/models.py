@@ -5,7 +5,7 @@ import uuid
 
 class Book(SQLModel, table=True):
     __tablename__ = "books"
-    id : uuid.UUID = Field(
+    uid : uuid.UUID = Field(
         sa_column=Column(
             pg.UUID,
             primary_key=True,
@@ -19,8 +19,8 @@ class Book(SQLModel, table=True):
     publication_date : str
     page_count : int
     language : str
-    created_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now))
-    updated_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now, onupdate=datetime.now))
+    created_at : datetime = Field(sa_column=Column(pg.TIMESTAMP, nullable=False, default=datetime.now))
+    updated_at : datetime = Field(sa_column=Column(pg.TIMESTAMP, nullable=False, default=datetime.now, onupdate=datetime.now))
     
     
     # This method is used to provide a string representation of the Book object, which is useful for debugging and logging purposes.
