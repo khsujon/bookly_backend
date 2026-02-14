@@ -33,6 +33,8 @@ class BookResponse(BaseModel):
     published_date: str
     page_count: int
     language: str
+    
+    
 #update model
 class BookUpdate(BaseModel):
     title: Optional[str] = None
