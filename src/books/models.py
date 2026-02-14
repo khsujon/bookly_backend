@@ -19,5 +19,5 @@ class Book(SQLModel, table=True):
     publication_date : datetime
     page_count : int
     language : str
-    created_at : datetime
-    updated_at : datetime
+    created_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now))
+    updated_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now, onupdate=datetime.now))
