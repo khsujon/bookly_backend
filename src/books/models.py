@@ -21,3 +21,8 @@ class Book(SQLModel, table=True):
     language : str
     created_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now))
     updated_at : datetime = Field(Column(pg.TIMESTAMP, nullable=False, default=datetime.now, onupdate=datetime.now))
+    
+    
+    # This method is used to provide a string representation of the Book object, which is useful for debugging and logging purposes.
+    def __repr__(self):
+        return f'<Book(id={self.id}, title="{self.title}", author="{self.author}")>'
