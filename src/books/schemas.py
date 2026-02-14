@@ -13,6 +13,15 @@ class Book(BaseModel):
     language: str
     created_at: datetime
     updated_at: datetime
+
+#Create book model
+class BookCreateModel(BaseModel):
+    title: str
+    author: str
+    publisher: str
+    published_date: str
+    page_count: int
+    language: str
     
     
 #response model
@@ -23,7 +32,7 @@ class BookResponse(BaseModel):
     publisher: str
     published_date: str
     page_count: int
-    
+    language: str
 #update model
 class BookUpdate(BaseModel):
     title: Optional[str] = None
