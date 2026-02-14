@@ -1,9 +1,17 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel, Column
+import sqlalchemy.dialects.postgresql as pg
 from datetime import datetime
-from uuid import UUID
+import uuid
 
 class Book(SQLModel, table=True):
-    id : UUID
+    id : uuid.UUID = Field(
+        sa_column=Column(
+            pg.UUID,
+            primary_key=True,
+            nullable=False,
+            default=uuid.uuid4
+        )
+    )
     title : str
     author : str
     publisher : str
