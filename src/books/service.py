@@ -26,7 +26,17 @@ class BookService:
         return new_book
     
     async def update_book(self, book_uid: str, updated_data: BookUpdate, session: AsyncSession):
-        pass
+        book_to_update = await self.get_book(book_uid, session)
+        
+        
+        updated_data_dict = updated_data.model_dump()
+        
+        for key, value in updated_data_dict.items():
+            if value is not None:
+                setattr(book_to_update, key, value)
+        await session.commit()
+        await session.refresh(book_to_update)
+        return book_to_update
     
     async def delete_book(self, book_uid: str, session: AsyncSession):
         pass
