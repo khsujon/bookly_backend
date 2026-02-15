@@ -4,6 +4,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from . schemas import BookCreateModel, BookUpdate
 from sqlmodel import select, desc
 from .models import Book
+
+# Service layer for handling book-related operations
 class BookService:
     async def get_all_books(self, session: AsyncSession):
         statement = select(Book).order_by(desc(Book.created_at))
@@ -11,7 +13,9 @@ class BookService:
         return result.all()
     
     async def get_book(self, book_uid: str, session: AsyncSession):
-        pass
+        statement = select(Book).where(Book.uid == book_uid)
+        result = await session.exec(statement)
+        return result.first()
     
     async def create_book(self, book_data: BookCreateModel, session: AsyncSession):
         pass
