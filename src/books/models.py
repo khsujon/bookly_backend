@@ -1,3 +1,5 @@
+#All the database models in here which act as the blueprint for the tables in the database. Each model corresponds to a table, and the attributes of the model correspond to the columns in the table. The models also include methods for representing the data and can be used to perform CRUD operations on the database through an ORM (Object-Relational Mapping) layer.
+
 from sqlmodel import Field, SQLModel, Column
 import sqlalchemy.dialects.postgresql as pg
 from datetime import date, datetime

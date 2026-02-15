@@ -18,7 +18,12 @@ class BookService:
         return result.first()
     
     async def create_book(self, book_data: BookCreateModel, session: AsyncSession):
-        pass
+        book_data_dict = book_data.model_dump()
+        new_book = Book(**book_data_dict)
+        session.add(new_book)             # Add the new book to the session
+        await session.commit()            # Commit the transaction to save the new book to the database
+        await session.refresh(new_book)   # Refresh the instance to get the updated data (like generated ID)
+        return new_book
     
     async def update_book(self, book_uid: str, updated_data: BookUpdate, session: AsyncSession):
         pass
