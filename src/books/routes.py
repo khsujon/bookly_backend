@@ -3,6 +3,8 @@ from fastapi.exceptions import HTTPException
 from typing import List
 from .books_data import books
 from .schemas import Book, BookUpdate
+from src.db.main import get_session
+from src.books.service import BookService
 
 book_router = APIRouter()
 #endpoints
