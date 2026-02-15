@@ -18,7 +18,7 @@ class Book(SQLModel, table=True):
     title : str
     author : str
     publisher : str
-    publication_date : date
+    published_date : date
     page_count : int
     language : str
     created_at : datetime = Field(sa_column=Column(pg.TIMESTAMP, nullable=False, default=datetime.now))
@@ -27,4 +27,4 @@ class Book(SQLModel, table=True):
     
     # This method is used to provide a string representation of the Book object, which is useful for debugging and logging purposes.
     def __repr__(self):
-        return f'<Book(id={self.id}, title="{self.title}", author="{self.author}")>'
+        return f'<Book(uid={self.uid}, title="{self.title}", author="{self.author}")>'

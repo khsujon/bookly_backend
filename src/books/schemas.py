@@ -3,24 +3,12 @@ from pydantic import BaseModel
 from datetime import datetime, date
 import uuid
 
-# Database model (what gets stored)
-class Book(BaseModel):
-    uid: uuid.UUID
-    title: str
-    author: str
-    publisher: str
-    published_date: date
-    page_count: int
-    language: str
-    created_at: datetime
-    updated_at: datetime
-
 # Create book model (request body - no uid, timestamps)
 class BookCreateModel(BaseModel):
     title: str
     author: str
     publisher: str
-    published_date: str
+    published_date: str  # Accept as string from API
     page_count: int
     language: str
     
@@ -30,7 +18,7 @@ class BookResponse(BaseModel):
     title: str 
     author: str
     publisher: str
-    published_date: date
+    published_date: date  # Match database field name
     page_count: int
     language: str
     created_at: datetime

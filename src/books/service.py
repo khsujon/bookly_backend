@@ -28,7 +28,7 @@ class BookService:
     async def create_book(self, book_data: BookCreateModel, session: AsyncSession):
         book_data_dict = book_data.model_dump()
         new_book = Book(**book_data_dict)
-        new_book.publication_date = datetime.strptime(book_data.published_date, "%Y-%m-%d").date()
+        new_book.published_date = datetime.strptime(book_data.published_date, "%d %B %Y").date()
         session.add(new_book)             # Add the new book to the session
         await session.commit()            # Commit the transaction to save the new book to the database
         await session.refresh(new_book)   # Refresh the instance to get the updated data (like generated ID)

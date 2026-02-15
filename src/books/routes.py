@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Depends
 from fastapi.exceptions import HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
 from typing import List
-from .schemas import Book, BookUpdate, BookCreateModel
+from .schemas import BookResponse, BookUpdate, BookCreateModel
 from src.db.main import get_session
 from src.books.service import BookService
 
@@ -11,14 +11,14 @@ book_service = BookService()
 #endpoints
 
 #get all books
-@book_router.get("/", response_model= List[Book])
+@book_router.get("/", response_model= List[BookResponse])
 async def get_books(session: AsyncSession=Depends(get_session)):
     books = await book_service.get_all_books(session)
     return books
 
 #create a book
-@book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=Book)
-async def create_book(book_data: BookCreateModel, session: AsyncSession=Depends(get_session))-> Book:
+@book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=BookResponse)
+async def create_book(book_data: BookCreateModel, session: AsyncSession=Depends(get_session)):
     new_book = await book_service.create_book(book_data, session)
     return new_book
 
