@@ -7,11 +7,13 @@ from src.db.main import get_session
 from src.books.service import BookService
 
 book_router = APIRouter()
+book_service = BookService()
 #endpoints
 
 #get all books
 @book_router.get("/", response_model= List[Book])
 async def get_books(session: AsyncSession=Depends(get_session)):
+    books = await book_service.get_all_books(session)
     return books
 
 #create a book
