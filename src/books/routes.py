@@ -17,11 +17,9 @@ async def get_books(session: AsyncSession=Depends(get_session)):
     return books
 
 #create a book
-@book_router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_book(book: Book)-> dict:
-    new_book = book.model_dump()
-    new_book["id"] = len(books) + 1
-    books.append(new_book)
+@book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=Book)
+async def create_book(book_data: Book, session: AsyncSession=Depends(get_session))-> Book:
+    new_book = book_service.create_book(book_data, session)
     return new_book
 
 #get book by id
