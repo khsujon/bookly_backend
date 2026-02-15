@@ -50,4 +50,11 @@ class BookService:
     
     # This method is responsible for deleting a book from the database based on its unique identifier (UID).
     async def delete_book(self, book_uid: str, session: AsyncSession):
-        pass
+        book_to_delete = await self.get_book(book_uid, session)
+        
+        if not book_to_delete:
+            return None
+        
+        await session.delete(book_to_delete)  # Mark the book for deletion
+        await session.commit()                # Commit the transaction to delete the book from the database
+        return book_to_delete
