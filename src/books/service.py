@@ -1,7 +1,7 @@
 #All logics in here
 
 from sqlmodel.ext.asyncio.session import AsyncSession
-from . schemas import BookCreateModel, BookUpdate
+from .schemas import BookCreateModel, BookUpdate
 from sqlmodel import select, desc
 from .models import Book
 

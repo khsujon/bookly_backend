@@ -2,7 +2,8 @@ from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 import uuid
-#request model
+
+# Database model (what gets stored)
 class Book(BaseModel):
     uid: uuid.UUID
     title: str
@@ -14,7 +15,7 @@ class Book(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-#Create book model
+# Create book model (request body - no uid, timestamps)
 class BookCreateModel(BaseModel):
     title: str
     author: str
@@ -23,8 +24,7 @@ class BookCreateModel(BaseModel):
     page_count: int
     language: str
     
-    
-#response model
+# Response model (what API returns)
 class BookResponse(BaseModel):
     uid: uuid.UUID
     title: str 
@@ -33,9 +33,10 @@ class BookResponse(BaseModel):
     published_date: str
     page_count: int
     language: str
+    created_at: datetime
+    updated_at: datetime
     
-    
-#update model
+# Update model
 class BookUpdate(BaseModel):
     title: Optional[str] = None
     publisher: Optional[str] = None

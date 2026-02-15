@@ -20,7 +20,9 @@ app = FastAPI(
     version=version,
     lifespan=lifespan
 )
+
 app.include_router(book_router, prefix=f"/{version}/books", tags=["books"])
+
 @app.get("/")
 async def root():
     return {"message": f"Welcome to the Book API {version}!"}
