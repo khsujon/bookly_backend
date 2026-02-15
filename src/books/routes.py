@@ -23,12 +23,12 @@ async def create_book(book_data: Book, session: AsyncSession=Depends(get_session
     return new_book
 
 #get book by id
-@book_router.get("/{book_id}")
-async def get_book(book_id: int)-> dict:
-    for book in books:
-        if book["id"]==book_id:
-            return book
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_id}")
+@book_router.get("/{book_uid}")
+async def get_book(book_uid: str, session: AsyncSession=Depends(get_session))-> dict:
+    book = book_service.get_book(book_uid, session)
+    if book is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Book Not Found with id {book_uid}")
+    return book
 
 #update a book
 @book_router.patch("/{book_id}")
