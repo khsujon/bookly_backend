@@ -15,6 +15,8 @@ class BookService:
     async def get_book(self, book_uid: str, session: AsyncSession):
         statement = select(Book).where(Book.uid == book_uid)
         result = await session.exec(statement)
+        if not result.first():
+            return None
         return result.first()
     
     async def create_book(self, book_data: BookCreateModel, session: AsyncSession):
@@ -28,6 +30,8 @@ class BookService:
     async def update_book(self, book_uid: str, updated_data: BookUpdate, session: AsyncSession):
         book_to_update = await self.get_book(book_uid, session)
         
+        if not book_to_update:
+            return None
         
         updated_data_dict = updated_data.model_dump()
         
