@@ -57,4 +57,4 @@ class BookService:
         
         await session.delete(book_to_delete)  # Mark the book for deletion
         await session.commit()                # Commit the transaction to delete the book from the database
-        return book_to_delete
+        return {}
