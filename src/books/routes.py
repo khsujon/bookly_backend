@@ -1,5 +1,6 @@
 from fastapi import APIRouter, status, Depends
 from fastapi.exceptions import HTTPException
+from sqlmodel.ext.asyncio.session import AsyncSession
 from typing import List
 from .books_data import books
 from .schemas import Book, BookUpdate
