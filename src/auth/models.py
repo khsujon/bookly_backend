@@ -21,3 +21,7 @@ class User(SQLModel, table=True):
     is_verified: bool = Field(default=False)
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP(timezone=True), default=datetime.now, nullable=False))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP(timezone=True), default=datetime.now, onupdate=datetime.utcnow, nullable=False))
+    
+    
+    def __repr__(self):
+        return f'<User(id={self.id}, username="{self.username}", email="{self.email}")>' 
