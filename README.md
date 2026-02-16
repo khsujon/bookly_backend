@@ -161,7 +161,91 @@ A RESTful API backend for a book review application built with FastAPI.
     - Centralizes startup/shutdown logic in one place
     - Prevents memory leaks and ensures proper resource management
 
-13. **Run the application**
+13. **Install Alembic for database migrations**
+    
+    Alembic is a database migration tool for SQLAlchemy/SQLModel:
+    ```bash
+    pip install alembic
+    ```
+    
+    **What is Alembic?**
+    - Database migration tool that tracks schema changes over time
+    - Allows version control for your database structure
+    - Enables safe rollback to previous database states
+    - Essential for production deployments and team collaboration
+
+14. **Initialize Alembic with async support**
+    
+    ```bash
+    alembic init -t async migrations
+    ```
+    
+    **Command explanation:**
+    - `init`: Creates Alembic configuration and directory structure
+    - `-t async`: Uses the async template (required for async database operations)
+    - `migrations`: Name of the directory where migration files will be stored
+    
+    **Generated files:**
+    - `alembic.ini`: Main configuration file
+    - `migrations/env.py`: Migration environment configuration
+    - `migrations/script.py.mako`: Template for generating migration files
+    - `migrations/versions/`: Directory for migration version files
+
+15. **Configure Alembic environment**
+    
+    Update `migrations/env.py` with your models and configuration:
+    ```python
+    from src.books.models import Book
+    from src.auth.models import User
+    from sqlmodel import SQLModel
+    from src.config import Config
+    
+    # Set database URL from config
+    config.set_main_option("sqlalchemy.url", Config.DATABASE_URL)
+    
+    # Set target metadata for autogenerate
+    target_metadata = SQLModel.metadata
+    ```
+    
+    **Key configurations:**
+    - **Import all models**: Ensures Alembic knows about all database tables
+    - **SQLModel.metadata**: Points Alembic to your SQLModel table definitions
+    - **Config.DATABASE_URL**: Uses your environment-based database connection
+    
+    Update `migrations/script.py.mako` to include SQLModel import:
+    ```python
+    import sqlmodel
+    ```
+    
+    **Why this matters:**
+    - Without importing models, Alembic can't detect tables
+    - SQLModel.metadata contains all table schemas
+    - Template ensures SQLModel is available in all migration files
+
+16. **Generate initial migration**
+    
+    ```bash
+    alembic revision --autogenerate -m "init"
+    ```
+    
+    **Command explanation:**
+    - `revision`: Creates a new migration file
+    - `--autogenerate`: Automatically detects model changes and generates migration code
+    - `-m "init"`: Migration message/description
+    
+    **What happens:**
+    - Alembic compares your SQLModel definitions to the current database state
+    - Generates upgrade() and downgrade() functions with SQL commands
+    - Creates a versioned migration file in `migrations/versions/`
+    - Each migration has a unique revision ID for tracking
+    
+    **Apply migrations:**
+    ```bash
+    alembic upgrade head
+    ```
+    This applies all pending migrations to your database.
+
+17. **Run the application**
     ```bash
     fastapi dev src/
     # or
