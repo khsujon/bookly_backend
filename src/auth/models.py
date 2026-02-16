@@ -1,11 +1,19 @@
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field, Column
+import sqlalchemy.dialects.postgresql as pg
 import uuid
 from datetime import datetime
 
 
 class User(SQLModel, table=True):
     __tablename__ = "users"
-    id : uuid.UUID
+    id : uuid.UUID = Field(
+        sa_column=Column(
+            pg.UUID, 
+            primary_key=True, 
+            default=uuid.uuid4, 
+            nullable=False
+        )
+    )
     username: str
     email: str
     first_name: str
