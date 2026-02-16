@@ -18,6 +18,6 @@ class User(SQLModel, table=True):
     email: str
     first_name: str
     last_name: str
-    is_verified: bool
+    is_verified: False
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP(timezone=True), default=datetime.now, nullable=False))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP(timezone=True), default=datetime.now, onupdate=datetime.utcnow, nullable=False))
