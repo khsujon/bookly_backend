@@ -19,9 +19,10 @@ class BookService:
     async def get_book(self, book_uid: str, session: AsyncSession):
         statement = select(Book).where(Book.uid == book_uid)
         result = await session.exec(statement)
-        if not result.first():
+        book = result.first()
+        if not book:
             return None
-        return result.first()
+        return book
     
     
     # This method is responsible for creating a new book entry in the database. 
