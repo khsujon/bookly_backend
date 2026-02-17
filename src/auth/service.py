@@ -26,7 +26,4 @@ class UserService:
         user_data_dict = user_data.model_dump()
         
         new_user = User(**user_data_dict)
-        session.add(user_data)
-        await session.commit()
-        await session.refresh(user_data)
-        return user_data
+        
