@@ -238,14 +238,46 @@ A RESTful API backend for a book review application built with FastAPI.
     - Generates upgrade() and downgrade() functions with SQL commands
     - Creates a versioned migration file in `migrations/versions/`
     - Each migration has a unique revision ID for tracking
+
+17. **Apply migrations to database**
     
-    **Apply migrations:**
     ```bash
     alembic upgrade head
     ```
-    This applies all pending migrations to your database.
+    
+    **Command explanation:**
+    - `upgrade`: Applies migration(s) to the database
+    - `head`: Refers to the latest migration version (most recent)
+    
+    **What happens:**
+    - Alembic reads all migration files in `migrations/versions/`
+    - Checks which migrations have been applied (stored in `alembic_version` table)
+    - Executes the `upgrade()` function from each pending migration in order
+    - Creates/modifies tables, columns, indexes, and constraints as defined
+    - Updates `alembic_version` table with the current revision ID
+    
+    **Other useful commands:**
+    ```bash
+    # Downgrade to previous version
+    alembic downgrade -1
+    
+    # Downgrade to specific revision
+    alembic downgrade <revision_id>
+    
+    # View migration history
+    alembic history
+    
+    # Check current revision
+    alembic current
+    ```
+    
+    **Why this matters:**
+    - Creates actual database tables from your SQLModel definitions
+    - Provides version control for database schema
+    - Enables safe rollback if something goes wrong
+    - Synchronizes database structure across development/staging/production environments
 
-17. **Run the application**
+18. **Run the application**
     ```bash
     fastapi dev src/
     # or
