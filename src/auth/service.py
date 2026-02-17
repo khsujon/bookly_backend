@@ -14,3 +14,9 @@ class UserService:
         result = await session.exec(statement)
         user = result.first()
         return user
+    async def user_exists(self, email: str, session: AsyncSession) -> bool:
+        user = await self.get_user_by_email(email, session)
+        
+        if user is None:
+            return False
+        return True
