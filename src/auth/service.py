@@ -26,8 +26,10 @@ class UserService:
     async def create_user(self, user_data: UserCreateModel, session: AsyncSession):
         user_data_dict = user_data.model_dump()
         
+        # Extract password and hash it
+        password = user_data_dict.pop("password")
         new_user = User(**user_data_dict)
-        new_user.password_hash = generate_password_hash(user_data_dict["password"])
+        new_user.password_hash = generate_password_hash(password)
         session.add(new_user)
         await session.commit()
         await session.refresh(new_user)
