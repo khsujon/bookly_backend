@@ -35,7 +35,15 @@ A RESTful API backend for a book review application built with FastAPI.
    ```bash
    pip install pydantic-settings
    pip install asyncpg
+   pip install sqlmodel
+   pip install passlib
    ```
+   
+   **Package purposes:**
+   - `pydantic-settings`: Environment variable and configuration management
+   - `asyncpg`: Async PostgreSQL driver for high-performance database operations
+   - `sqlmodel`: SQLAlchemy + Pydantic integration for elegant database models
+   - `passlib`: Password hashing library for secure user authentication
 
 5. **Create requirements file**
    ```bash
@@ -74,14 +82,7 @@ A RESTful API backend for a book review application built with FastAPI.
    'postgresql+asyncpg://postgres:your_password@localhost:5432/bookly_db'
    ```
 
-9. **Install SQLModel**
-   
-   SQLModel combines SQLAlchemy and Pydantic for elegant database interactions:
-   ```bash
-   pip install sqlmodel
-   ```
-
-10. **Set up database engine**
+9. **Set up database engine**
     
     Create `src/db/main.py` with the following content:
     ```python
@@ -106,7 +107,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - Handles multiple concurrent requests efficiently
     - Better performance and scalability for production applications
 
-11. **Add database initialization function**
+10. **Add database initialization function**
     
     Add the following function to `src/db/main.py`:
     ```python
@@ -128,7 +129,7 @@ A RESTful API backend for a book review application built with FastAPI.
     
     **Purpose:** Tests database connectivity on startup to ensure the connection is working properly.
 
-12. **Configure application lifespan**
+11. **Configure application lifespan**
     
     In your main application file (e.g., `src/__init__.py` or `src/main.py`), add:
     ```python
@@ -161,7 +162,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - Centralizes startup/shutdown logic in one place
     - Prevents memory leaks and ensures proper resource management
 
-13. **Install Alembic for database migrations**
+12. **Install Alembic for database migrations**
     
     Alembic is a database migration tool for SQLAlchemy/SQLModel:
     ```bash
@@ -174,7 +175,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - Enables safe rollback to previous database states
     - Essential for production deployments and team collaboration
 
-14. **Initialize Alembic with async support**
+13. **Initialize Alembic with async support**
     
     ```bash
     alembic init -t async migrations
@@ -191,7 +192,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - `migrations/script.py.mako`: Template for generating migration files
     - `migrations/versions/`: Directory for migration version files
 
-15. **Configure Alembic environment**
+14. **Configure Alembic environment**
     
     Update `migrations/env.py` with your models and configuration:
     ```python
@@ -222,7 +223,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - SQLModel.metadata contains all table schemas
     - Template ensures SQLModel is available in all migration files
 
-16. **Generate initial migration**
+15. **Generate initial migration**
     
     ```bash
     alembic revision --autogenerate -m "init"
@@ -239,7 +240,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - Creates a versioned migration file in `migrations/versions/`
     - Each migration has a unique revision ID for tracking
 
-17. **Apply migrations to database**
+16. **Apply migrations to database**
     
     ```bash
     alembic upgrade head
@@ -277,7 +278,7 @@ A RESTful API backend for a book review application built with FastAPI.
     - Enables safe rollback if something goes wrong
     - Synchronizes database structure across development/staging/production environments
 
-18. **Run the application**
+17. **Run the application**
     ```bash
     fastapi dev src/
     # or
