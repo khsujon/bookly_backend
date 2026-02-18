@@ -12,3 +12,7 @@ def generate_password_hash(password: str) -> str:
 # Utility function to verify passwords
 def verify_password(password: str, hash: str) -> bool:
     return password_context.verify(password, hash)
+
+# CREATE ACCESS TOKEN
+def create_access_token():
+    pass
