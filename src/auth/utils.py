@@ -15,5 +15,5 @@ def verify_password(password: str, hash: str) -> bool:
     return password_context.verify(password, hash)
 
 # CREATE ACCESS TOKEN
-def create_access_token():
+def create_access_token(user_data:dict, expiry:timedelta):
     pass
