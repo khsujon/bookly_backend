@@ -16,10 +16,10 @@ def verify_password(password: str, hash: str) -> bool:
 
 # CREATE ACCESS TOKEN
 def create_access_token(user_data:dict, expiry:timedelta):
-    
+    payload = {}
     
     token = jwt.encode(
         
-        payload = {}
+        
         
     )
