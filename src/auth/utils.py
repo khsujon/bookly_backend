@@ -1,6 +1,7 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import jwt
+from src.config import Config
 
 password_context = CryptContext(schemes=["bcrypt"])
 
@@ -20,7 +21,7 @@ def create_access_token(user_data:dict, expiry:timedelta):
     
     token = jwt.encode(
         payload=payload,
-        key="secret",
-        algorithm="HS256",
+        key=Config.JWT_SECRET_KEY,
+        algorithm=Config.JWT_ALGORITHM,
         
     )
