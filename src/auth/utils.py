@@ -19,7 +19,8 @@ def create_access_token(user_data:dict, expiry:timedelta):
     payload = {}
     
     token = jwt.encode(
-        
-        
+        payload=payload,
+        key="secret",
+        algorithm="HS256",
         
     )
