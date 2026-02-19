@@ -9,11 +9,12 @@ from src.auth.dependencies import AccessTokenBearer
 
 book_router = APIRouter()
 book_service = BookService()
+access_token_bearer = AccessTokenBearer()
 #endpoints
 
 #get all books
 @book_router.get("/", response_model= List[BookResponse])
-async def get_books(session: AsyncSession=Depends(get_session)):
+async def get_books(session: AsyncSession=Depends(get_session), user_details=Depends(access_token_bearer)):
     books = await book_service.get_all_books(session)
     return books
 
