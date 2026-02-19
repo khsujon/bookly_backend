@@ -19,7 +19,7 @@ class AccessTokenBearer(HTTPBearer):
         if token_data['refresh']:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, access token required")
         
-        return credential
+        return token_data
     
     #Validate token 
     def token_validation(self, token: str)->bool:
