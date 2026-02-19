@@ -7,7 +7,8 @@ class AccessTokenBearer(HTTPBearer):
     
     def __init__(self, auto_error: bool = True):
         super(AccessTokenBearer, self).__init__(auto_error=auto_error)
-        
+    
+    #Override the __call__ method to validate the token and ensure it's an access token
     async def __call__(self, request: Request)->HTTPAuthorizationCredentials|None:
         credential = await super().__call__(request)
         token = credential.credentials
@@ -20,8 +21,8 @@ class AccessTokenBearer(HTTPBearer):
         
         return credential
     
+    #Validate token 
     def token_validation(self, token: str)->bool:
-        
         token_data = decode_access_token(token)
         if token_data is None:
             return False
