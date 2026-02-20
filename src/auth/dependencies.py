@@ -27,3 +27,7 @@ class TokenBearer(HTTPBearer):
         if token_data is None:
             return False
         return True
+    
+
+class AccessTokenBearer(TokenBearer):
+    pass
