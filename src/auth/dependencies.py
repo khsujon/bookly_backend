@@ -3,10 +3,10 @@ from fastapi import Request, HTTPException,status
 from .utils import decode_access_token
 
 
-class AccessTokenBearer(HTTPBearer):
+class TokenBearer(HTTPBearer):
     
     def __init__(self, auto_error: bool = True):
-        super(AccessTokenBearer, self).__init__(auto_error=auto_error)
+        super(TokenBearer, self).__init__(auto_error=auto_error)
     
     #Override the __call__ method to validate the token and ensure it's an access token
     async def __call__(self, request: Request)->HTTPAuthorizationCredentials|None:
