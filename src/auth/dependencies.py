@@ -16,6 +16,7 @@ class TokenBearer(HTTPBearer):
         if not self.token_validation(token):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
         
+        self.verify_token_data(token_data)
         return token_data
     
     #Validate token 
@@ -24,6 +25,9 @@ class TokenBearer(HTTPBearer):
         if token_data is None:
             return False
         return True
+
+    def verify_token_data(self, token_data:dict):
+        raise NotImplementedError("Subclasses must implement this method to verify token data")
     
 
 class AccessTokenBearer(TokenBearer):
