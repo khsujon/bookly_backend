@@ -16,9 +16,6 @@ class TokenBearer(HTTPBearer):
         if not self.token_validation(token):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
         
-        if token_data['refresh']:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, access token required")
-        
         return token_data
     
     #Validate token 
@@ -30,4 +27,7 @@ class TokenBearer(HTTPBearer):
     
 
 class AccessTokenBearer(TokenBearer):
-    pass
+    
+    def verify_token_data(self, token_data:dict)->None:
+        if token_data and token_data['refresh']:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, access token required")
