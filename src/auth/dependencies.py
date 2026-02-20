@@ -27,7 +27,11 @@ class TokenBearer(HTTPBearer):
     
 
 class AccessTokenBearer(TokenBearer):
-    
     def verify_token_data(self, token_data:dict)->None:
         if token_data and token_data['refresh']:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, access token required")
+
+class RefreshTokenBearer(TokenBearer):
+    def verify_token_data(self, token_data:dict)->None:
+        if token_data and not token_data['refresh']:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, refresh token required")
