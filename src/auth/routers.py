@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from .dependencies import RefreshTokenBearer
 from .schemas import UserCreateModel, UserModel, UserLoginModel
 from .service import UserService
 from src.db.main import get_session
@@ -73,4 +74,13 @@ async def login_user(login_data: UserLoginModel, session : AsyncSession = Depend
         })
         
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid credentials, user not found with this email")
+
+
+#refresh access token
+@auth_router.get("/refresh")
+async def get_new_access_token(token_details:dict=Depends(RefreshTokenBearer())):
+    
+    
+    return JSONResponse(content={
         
+    })
