@@ -5,7 +5,7 @@ from .service import UserService
 from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .utils import create_access_token, decode_access_token, verify_password
-from datetime import timedelta
+from datetime import timedelta, datetime
 from fastapi.responses import JSONResponse
 
 auth_router = APIRouter()
@@ -79,8 +79,16 @@ async def login_user(login_data: UserLoginModel, session : AsyncSession = Depend
 #refresh access token
 @auth_router.get("/refresh")
 async def get_new_access_token(token_details:dict=Depends(RefreshTokenBearer())):
+    expiry_timestamp = token_details['exp']
     
+    if datetime.fromtimestamp(expiry_timestamp) < datetime.now():
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token has expired, please login again")
+    
+    
+    # Generate a new access token
+    new_access_token = create_access_token(user_data=token_details['user'])
     
     return JSONResponse(content={
-        
+        "message": "New access token generated successfully",
+        "access_token": new_access_token
     })
