@@ -13,6 +13,7 @@ class TokenBearer(HTTPBearer):
         credential = await super().__call__(request)
         token = credential.credentials
         token_data = decode_access_token(token)
+        
         if not self.token_validation(token):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
         
