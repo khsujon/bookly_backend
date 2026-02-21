@@ -20,7 +20,7 @@ class TokenBearer(HTTPBearer):
         
         #Check if token is blocked
         if await is_token_blocked(token_data['jti']):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"error": "Token has been revoked or invalid", "resolution": "Please get a new token"})
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"error": "Token has been revoked or invalid", "resolution": "Please get a new token by logging in again"})
         
         self.verify_token_data(token_data)
         return token_data
