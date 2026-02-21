@@ -89,6 +89,5 @@ async def get_new_access_token(token_details:dict=Depends(RefreshTokenBearer()))
     new_access_token = create_access_token(user_data=token_details['user'])
     
     return JSONResponse(content={
-        "message": "New access token generated successfully",
         "access_token": new_access_token
     })
