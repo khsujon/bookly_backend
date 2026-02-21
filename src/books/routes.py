@@ -5,11 +5,11 @@ from typing import List
 from .schemas import BookResponse, BookUpdate, BookCreateModel
 from src.db.main import get_session
 from src.books.service import BookService
-from src.auth.dependencies import TokenBearer
+from src.auth.dependencies import AccessTokenBearer
 
 book_router = APIRouter()
 book_service = BookService()
-access_token_bearer = TokenBearer()
+access_token_bearer = AccessTokenBearer()
 #endpoints
 
 #get all books
