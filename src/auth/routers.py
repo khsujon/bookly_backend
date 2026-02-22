@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from .dependencies import RefreshTokenBearer
+from .dependencies import AccessTokenBearer, RefreshTokenBearer
+from src.db.redis import add_token_to_blocklist
 from .schemas import UserCreateModel, UserModel, UserLoginModel
 from .service import UserService
 from src.db.main import get_session
@@ -91,3 +92,14 @@ async def get_new_access_token(token_details:dict=Depends(RefreshTokenBearer()))
     return JSONResponse(content={
         "access_token": new_access_token
     })
+    
+#logout user
+@auth_router.post("/logout")
+async def logout_user(token_details:dict=Depends(AccessTokenBearer())):
+    jti = token_details['jti']
+    await add_token_to_blocklist(jti)
+    
+    return JSONResponse(content={
+        "message": "Logout successful",
+         
+    }, status_code=status.HTTP_200_OK)
