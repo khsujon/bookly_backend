@@ -6,6 +6,9 @@ from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .service import UserService
 
+
+user_service = UserService()
+
 class TokenBearer(HTTPBearer):
     
     def __init__(self, auto_error: bool = True):
@@ -52,4 +55,5 @@ class RefreshTokenBearer(TokenBearer):
 
 def get_current_user(token_details: dict = Depends(AccessTokenBearer()), session: AsyncSession = Depends(get_session)):
     user_email = token_details['user']['email']
+    
     
