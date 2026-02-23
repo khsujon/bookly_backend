@@ -2,6 +2,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import Request, HTTPException,status, Depends
 from .utils import decode_access_token
 from src.db.redis import is_token_blocked
+from src.db.main import get_session
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 class TokenBearer(HTTPBearer):
     
@@ -47,5 +49,5 @@ class RefreshTokenBearer(TokenBearer):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type, refresh token required")
 
 
-def get_current_user(token_details: dict = Depends(AccessTokenBearer())):
+def get_current_user(token_details: dict = Depends(AccessTokenBearer()), session: AsyncSession = Depends(get_session)):
     user_email = token_details['user']['email']
