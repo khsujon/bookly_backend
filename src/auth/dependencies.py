@@ -1,5 +1,5 @@
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi import Request, HTTPException,status
+from fastapi import Request, HTTPException,status, Depends
 from .utils import decode_access_token
 from src.db.redis import is_token_blocked
 
