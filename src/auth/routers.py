@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from .dependencies import AccessTokenBearer, RefreshTokenBearer
+from .dependencies import AccessTokenBearer, RefreshTokenBearer, get_current_user
 from src.db.redis import add_token_to_blocklist
 from .schemas import UserCreateModel, UserModel, UserLoginModel
 from .service import UserService
