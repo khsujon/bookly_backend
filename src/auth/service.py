@@ -30,6 +30,7 @@ class UserService:
         password = user_data_dict.pop("password")
         new_user = User(**user_data_dict)
         new_user.password_hash = generate_password_hash(password)
+        new_user.role = "user"
         session.add(new_user)
         await session.commit()
         await session.refresh(new_user)
