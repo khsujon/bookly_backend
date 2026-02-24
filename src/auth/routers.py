@@ -107,5 +107,5 @@ async def logout_user(token_details:dict=Depends(AccessTokenBearer())):
     
     return JSONResponse(content={
         "message": "Logout successful",
-         
     }, status_code=status.HTTP_200_OK)
+
