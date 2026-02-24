@@ -93,6 +93,12 @@ async def get_new_access_token(token_details:dict=Depends(RefreshTokenBearer()))
         "access_token": new_access_token
     })
     
+#get current user details
+@auth_router.get("/me")
+async def get_current_user(user = Depends(get_current_user)):
+    return user
+    
+    
 #logout user
 @auth_router.post("/logout")
 async def logout_user(token_details:dict=Depends(AccessTokenBearer())):
