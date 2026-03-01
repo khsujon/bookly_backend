@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 
 auth_router = APIRouter()
 user_service = UserService()
+role_checker = RoleChecker(allowed_roles=["admin"])
 
 REFRESH_TOKEN_EXPIRY_DAYS = 2
 
