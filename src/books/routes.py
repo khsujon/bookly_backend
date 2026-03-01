@@ -5,11 +5,12 @@ from typing import List
 from .schemas import BookResponse, BookUpdate, BookCreateModel
 from src.db.main import get_session
 from src.books.service import BookService
-from src.auth.dependencies import AccessTokenBearer
+from src.auth.dependencies import AccessTokenBearer, RoleChecker
 
 book_router = APIRouter()
 book_service = BookService()
 access_token_bearer = AccessTokenBearer()
+role_checker = RoleChecker(allowed_roles=["admin", "user"])
 
 
 #get all books
