@@ -5,7 +5,7 @@ from src.db.redis import is_token_blocked
 from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .service import UserService
-
+from typing import List
 
 user_service = UserService()
 
@@ -59,3 +59,4 @@ async def get_current_user(token_details: dict = Depends(AccessTokenBearer()), s
     user = await user_service.get_user_by_email(user_email, session)
     
     return user
+
