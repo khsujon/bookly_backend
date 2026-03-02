@@ -3,6 +3,7 @@
 from sqlmodel import Field, SQLModel, Column
 import sqlalchemy.dialects.postgresql as pg
 from datetime import date, datetime
+from typing import Optional
 import uuid
 
 class Book(SQLModel, table=True):
